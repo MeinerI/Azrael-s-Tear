@@ -58,20 +58,20 @@ sealed class Test {
                         if (readText[i+iii].Contains("texture")) 
                             xmat.Filename = Regex.Split(readText[i+iii],"\"")[1]; // имя текстуры 
 
-                        if (readText[i+iii].Contains("colour")) //  colour { 0, 0, 0, 0 }
+                        if (readText[i+iii].Contains("colour")) // colour { float, float, float, float }
                         {
-                            MatchCollection allNums = Regex.Matches(readText[i+iii], @"\d+"); 
-                            xmat.FaceColor.R = float.Parse(allNums[0].Value); 
-                            xmat.FaceColor.G = float.Parse(allNums[1].Value); 
-                            xmat.FaceColor.B = float.Parse(allNums[2].Value); 
-                            xmat.FaceColor.A = float.Parse(allNums[3].Value); 
+                            MatchCollection floats = Regex.Matches(readText[i+iii], @"(-?\d+(?:\.\d+)?)"); 
+                            xmat.FaceColor.R = float.Parse(floats[0].Value); 
+                            xmat.FaceColor.G = float.Parse(floats[1].Value); 
+                            xmat.FaceColor.B = float.Parse(floats[2].Value); 
+                            xmat.FaceColor.A = float.Parse(floats[3].Value); 
                         }
 
-                        if (readText[i+iii].Contains("specular")) //  specular { 0, 15 }
+                        if (readText[i+iii].Contains("specular")) // specular { float, float }
                         {
-                            MatchCollection allNums = Regex.Matches(readText[i+iii], @"\d+"); 
-                            xmat.Intensity = float.Parse(allNums[0].Value); 
-                            xmat.Power     = float.Parse(allNums[1].Value); 
+                            MatchCollection floats = Regex.Matches(readText[i+iii], @"(-?\d+(?:\.\d+)?)"); 
+                            xmat.Intensity = float.Parse(floats[0].Value); 
+                            xmat.Power     = float.Parse(floats[1].Value); 
                         }
                     }
                       Materials.Add(xmat); // ДОБАВЛЯЕМ МАТЕРИАЛ В СПИСОК 
